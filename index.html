@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#176b4d">
+<title>YardCircle</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7f5;
+  color: #202923;
+}
+header {
+  background: #176b4d;
+  color: white;
+  padding: 22px 18px;
+  border-radius: 0 0 20px 20px;
+}
+h1 { margin: 0; font-size: 27px; }
+header p { font-size: 13px; }
+main { padding: 18px 15px; }
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+  .card {
+  background: white;
+  padding: 15px;
+  margin: 14px 0;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px #0000000d;
+}
+h2 { font-size: 19px; }
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin: 7px 0;
+  border: 1px solid #d5ddd7;
+  border-radius: 9px;
+  background: white;
+}
+.action {
+  background: #176b4d;
+  color: white;
+  border: 0;
+  padding: 12px 15px;
+  border-radius: 9px;
+  width: 100%;
+}
+.tag {
+  color: #176b4d;
+  font-size: 12px;
+  font-weight: bold;
+}
+nav {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 14px 5px;
+  position: sticky;
+  bottom: 0;
+}
+nav button {
+  border: 0;
+  background: transparent;
+  color: #176b4d;
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>YardCircle</h1>
+  <p>Your people. Your yard sale.</p>
+</header>
+<main>
+  <div class="card">
+    <h2>Find items around your circle</h2>
+    <input id="search" placeholder="Search items, e.g. chair">
+    <select id="category">
+      <option value="all">All categories</option>
+      <option>Electronics</option>
+      <option>Furniture</option>
+      <option>Clothing</option>
+      <option>Home items</option>
+    </select>
+  </div>
+
+    <div class="card item" data-category="Furniture">
+    <span class="tag">COMMUNITY SALE</span>
+    <h2>Wooden Chair</h2>
+    <p>Good condition. Available for pickup.</p>
+    <strong>₦15,000</strong>
+    <p>Example listing</p>
+  </div>
+
+  <div class="card item" data-category="Electronics">
+    <span class="tag">PERSONAL SALE</span>
+    <h2>Used Phone</h2>
+    <p>Neat and working properly.</p>
+    <strong>₦45,000</strong>
+    <p>Example listing</p>
+  </div>
+
+  <div class="card">
+    <h2>Start a sale</h2>
+    <input id="itemName" placeholder="What are you selling?">
+    <input id="itemPrice" type="number" placeholder="Price in naira">
+    <button class="action" onclick="addItem()">Add sample listing</button>
+    <p id="message"></p>
+  </div>
+
+  <div class="card">
+    <h2>Join your community</h2>
+    <p>Connect with your church, school, estate or trusted group.</p>
+    <input placeholder="Community invitation code">
+    <button class="action" onclick="alert('Community joining will be connected in a later version.')">
+      Enter invitation code
+    </button>
+  </div>
+</main>
+
+<nav>
+  <button onclick="window.scrollTo(0,0)">Home</button>
+  <button onclick="document.querySelector('#itemName').scrollIntoView()">Sell</button>
+  <button onclick="alert('Your communities will appear here in a later version.')">My Circle</button>
+</nav>
+
+<script>
+function addItem() {
+  const name = document.getElementById('itemName').value.trim();
+  const price = document.getElementById('itemPrice').value;
+  const message = document.getElementById('message');
+
+  if (!name || !price || Number(price) <= 0) {
+    message.textContent = 'Enter an item name and a valid price.';
+    return;
+  }
+
+  const card = document.createElement('div');
+  card.className = 'card item';
+  card.dataset.category = 'all';
+
+  const title = document.createElement('h2');
+  title.textContent = name;
+
+  const amount = document.createElement('strong');
+  amount.textContent = '₦' + Number(price).toLocaleString('en-NG');
+
+  card.append(title, amount);
+  document.querySelector('main').insertBefore(card, document.querySelector('main').children[1]);
+
+  message.textContent = 'Sample listing added on this page.';
+  document.getElementById('itemName').value = '';
+  document.getElementById('itemPrice').value = '';
+}
+
+document.getElementById('search').addEventListener('input', filterItems);
+document.getElementById('category').addEventListener('change', filterItems);
+
+function filterItems() {
+  const term = document.getElementById('search').value.toLowerCase();
+  const category = document.getElementById('category').value;
+
+  document.querySelectorAll('.item').forEach(item => {
+    const matchesText = item.textContent.toLowerCase().includes(term);
+    const matchesCategory = category === 'all' ||
+      item.dataset.category === category;
+    item.style.display = matchesText && matchesCategory ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
