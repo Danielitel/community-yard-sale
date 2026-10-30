@@ -193,6 +193,8 @@ function addItem() {
 document.getElementById('search').addEventListener('input', filterItems);
 document.getElementById('category').addEventListener('change', filterItems);
 
+  displaySavedItems();
+
 
   function displaySavedItems() {
   const items = JSON.parse(localStorage.getItem('yardItems') || '[]');
