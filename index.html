@@ -69,6 +69,53 @@ nav button {
   background: transparent;
   color: #176b4d;
 }
+
+.popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-box {
+  background: white;
+  color: #222;
+  width: 85%;
+  max-width: 350px;
+  padding: 22px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.popup-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.popup-buttons button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background: #e5e5e5;
+  color: #222;
+}
+
+.confirm-btn {
+  background: #d93025;
+  color: white;
+}
+
+  
 </style>
 </head>
 <body>
