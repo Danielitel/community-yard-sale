@@ -235,6 +235,7 @@ function addItem() {
   const name = document.getElementById('itemName').value.trim();
   const price = Number(document.getElementById('itemPrice').value);
   const category = document.getElementById('itemCategory').value;
+  const visibility = document.getElementById('itemVisibility').value;
   const description = document.getElementById('itemDescription').value.trim();
   const message = document.getElementById('message');
 
@@ -246,12 +247,13 @@ function addItem() {
   const items = JSON.parse(localStorage.getItem('yardItems') || '[]');
 
   const item = {
-    id: Date.now(),
-    name,
-    price,
-    category,
-    description
-  };
+  id: Date.now(),
+  name,
+  price,
+  category,
+  description,
+  visibility
+};
 
   items.push(item);
   localStorage.setItem('yardItems', JSON.stringify(items));
