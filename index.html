@@ -106,12 +106,36 @@ nav button {
   </div>
 
   <div class="card">
-    <h2>Start a sale</h2>
-    <input id="itemName" placeholder="What are you selling?">
-    <input id="itemPrice" type="number" placeholder="Price in naira">
-    <button class="action" onclick="addItem()">Add sample listing</button>
-    <p id="message"></p>
-  </div>
+  <h2>Sell an item</h2>
+
+  <input id="itemName" placeholder="Item name">
+
+  <input id="itemPrice" type="number"
+    placeholder="Price in naira">
+
+  <select id="itemCategory">
+    <option value="">Choose category</option>
+    <option>Electronics</option>
+    <option>Furniture</option>
+    <option>Clothing</option>
+    <option>Home items</option>
+    <option>Vehicles</option>
+    <option>Other</option>
+  </select>
+
+  <textarea id="itemDescription"
+    placeholder="Describe your item"
+    rows="3"></textarea>
+
+  <button class="action" onclick="addItem()">
+    Publish listing
+  </button>
+
+  <p id="message"></p>
+</div>
+
+
+  
 
   <div class="card">
     <h2>Join your community</h2>
@@ -130,33 +154,41 @@ nav button {
 </nav>
 
 <script>
+
+  
 function addItem() {
   const name = document.getElementById('itemName').value.trim();
-  const price = document.getElementById('itemPrice').value;
+  const price = Number(document.getElementById('itemPrice').value);
+  const category = document.getElementById('itemCategory').value;
+  const description = document.getElementById('itemDescription').value.trim();
   const message = document.getElementById('message');
 
-  if (!name || !price || Number(price) <= 0) {
-    message.textContent = 'Enter an item name and a valid price.';
+  if (!name || price <= 0 || !category) {
+    message.textContent = 'Enter item name, price and category.';
     return;
   }
 
-  const card = document.createElement('div');
-  card.className = 'card item';
-  card.dataset.category = 'all';
+  const items = JSON.parse(localStorage.getItem('yardItems') || '[]');
 
-  const title = document.createElement('h2');
-  title.textContent = name;
+  items.push({
+    id: Date.now(),
+    name: name,
+    price: price,
+    category: category,
+    description: description
+  });
 
-  const amount = document.createElement('strong');
-  amount.textContent = '₦' + Number(price).toLocaleString('en-NG');
+  localStorage.setItem('yardItems', JSON.stringify(items));
 
-  card.append(title, amount);
-  document.querySelector('main').insertBefore(card, document.querySelector('main').children[1]);
-
-  message.textContent = 'Sample listing added on this page.';
+  message.textContent = 'Your item has been saved!';
   document.getElementById('itemName').value = '';
   document.getElementById('itemPrice').value = '';
+  document.getElementById('itemCategory').value = '';
+  document.getElementById('itemDescription').value = '';
 }
+  
+
+  
 
 document.getElementById('search').addEventListener('input', filterItems);
 document.getElementById('category').addEventListener('change', filterItems);
@@ -174,4 +206,5 @@ function filterItems() {
 }
 </script>
 </body>
-</html>
+    </html>
+    
