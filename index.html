@@ -198,6 +198,42 @@ function addItem() {
 document.getElementById('search').addEventListener('input', filterItems);
 document.getElementById('category').addEventListener('change', filterItems);
 
+ function addItemCard(item) {
+  const card = document.createElement('div');
+  card.className = 'card item';
+  card.dataset.category = item.category;
+
+  const title = document.createElement('h2');
+  title.textContent = item.name;
+
+  const price = document.createElement('strong');
+  price.textContent = '₦' + Number(item.price).toLocaleString('en-NG');
+
+  const description = document.createElement('p');
+  description.textContent = item.description || 'No description provided.';
+
+  const category = document.createElement('span');
+  category.className = 'tag';
+  category.textContent = item.category;
+
+  const remove = document.createElement('button');
+  remove.textContent = 'Delete listing';
+  remove.className = 'action';
+  remove.style.marginTop = '12px';
+
+  remove.onclick = function() {
+    deleteItem(item.id);
+  };
+
+  card.append(category, title, price, description, remove);
+
+  document.querySelector('main').insertBefore(
+    card,
+    document.querySelector('main').children[1]
+  );
+}
+  
+  
   displaySavedItems();
 
 
