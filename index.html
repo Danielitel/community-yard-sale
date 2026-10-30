@@ -324,6 +324,17 @@ function confirmDeleteItem() {
   category.className = 'tag';
   category.textContent = item.category;
 
+   const visibilityLabel = document.createElement('p');
+
+const visibilityNames = {
+  circles: 'My Circles Only',
+  location: 'My Location',
+  everyone: 'Everyone'
+};
+
+visibilityLabel.textContent =
+  'Visibility: ' + (visibilityNames[item.visibility] || 'My Circles Only');
+
   const remove = document.createElement('button');
   remove.textContent = 'Delete listing';
   remove.className = 'action';
