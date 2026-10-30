@@ -164,28 +164,33 @@ function addItem() {
   const message = document.getElementById('message');
 
   if (!name || price <= 0 || !category) {
-    message.textContent = 'Enter item name, price and category.';
+    message.textContent = 'Enter item name, valid price and category.';
     return;
   }
 
   const items = JSON.parse(localStorage.getItem('yardItems') || '[]');
 
-  items.push({
+  const item = {
     id: Date.now(),
-    name: name,
-    price: price,
-    category: category,
-    description: description
-  });
+    name,
+    price,
+    category,
+    description
+  };
 
+  items.push(item);
   localStorage.setItem('yardItems', JSON.stringify(items));
 
-  message.textContent = 'Your item has been saved!';
+  addItemCard(item);
+
+  message.textContent = 'Your item has been published!';
   document.getElementById('itemName').value = '';
   document.getElementById('itemPrice').value = '';
   document.getElementById('itemCategory').value = '';
   document.getElementById('itemDescription').value = '';
 }
+  
+
   
 
   
