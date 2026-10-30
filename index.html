@@ -300,9 +300,8 @@ document.getElementById('category').addEventListener('change', filterItems);
   remove.style.marginTop = '12px';
 
   remove.onclick = function() {
-  const confirmDelete = confirm(
-    'Are you sure you want to delete this listing?'
-  );
+  openDeletePopup(item.id);
+};
 
   if (confirmDelete) {
     deleteItem(item.id);
