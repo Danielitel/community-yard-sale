@@ -212,7 +212,7 @@ document.getElementById('category').addEventListener('change', filterItems);
 
  function addItemCard(item) {
   const card = document.createElement('div');
-  card.className = 'card item';
+  card.className = 'card item saved-item';
   card.dataset.category = item.category;
 
   const title = document.createElement('h2');
