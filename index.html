@@ -250,30 +250,12 @@ document.getElementById('category').addEventListener('change', filterItems);
 
 
   function displaySavedItems() {
+  document.querySelectorAll('.saved-item').forEach(card => card.remove());
+
   const items = JSON.parse(localStorage.getItem('yardItems') || '[]');
 
-  items.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'card item';
-    card.dataset.category = item.category;
-
-    const title = document.createElement('h2');
-    title.textContent = item.name;
-
-    const price = document.createElement('strong');
-    price.textContent = '₦' + Number(item.price).toLocaleString('en-NG');
-
-    const description = document.createElement('p');
-    description.textContent = item.description;
-
-    card.append(title, price, description);
-
-    document.querySelector('main').insertBefore(
-      card,
-      document.querySelector('main').children[1]
-    );
-  });
-  }
+  items.forEach(item => addItemCard(item));
+}
 
 function filterItems() {
   const term = document.getElementById('search').value.toLowerCase();
