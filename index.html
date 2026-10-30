@@ -198,6 +198,18 @@ function addItem() {
 document.getElementById('search').addEventListener('input', filterItems);
 document.getElementById('category').addEventListener('change', filterItems);
 
+
+
+  function deleteItem(id) {
+  const items = JSON.parse(localStorage.getItem('yardItems') || '[]');
+
+  const updatedItems = items.filter(item => item.id !== id);
+
+  localStorage.setItem('yardItems', JSON.stringify(updatedItems));
+
+  displaySavedItems();
+  }
+
  function addItemCard(item) {
   const card = document.createElement('div');
   card.className = 'card item';
