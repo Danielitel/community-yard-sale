@@ -264,7 +264,26 @@ function addItem() {
 document.getElementById('search').addEventListener('input', filterItems);
 document.getElementById('category').addEventListener('change', filterItems);
 
+let itemToDelete = null;
 
+function openDeletePopup(id) {
+  itemToDelete = id;
+  document.getElementById('deletePopup').style.display = 'flex';
+}
+
+function closeDeletePopup() {
+  itemToDelete = null;
+  document.getElementById('deletePopup').style.display = 'none';
+}
+
+function confirmDeleteItem() {
+  if (itemToDelete !== null) {
+    deleteItem(itemToDelete);
+    closeDeletePopup();
+  }
+}
+
+  
 
   function deleteItem(id) {
   const items = JSON.parse(localStorage.getItem('yardItems') || '[]');
