@@ -329,6 +329,8 @@ function confirmDeleteItem() {
 
   const description = document.createElement('p');
   description.textContent = item.description || 'No description provided.';
+   const locationLabel = document.createElement('p');
+locationLabel.textContent = '📍 ' + (item.location || 'Location not specified');
 
   const category = document.createElement('span');
   category.className = 'tag';
