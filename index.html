@@ -326,6 +326,7 @@ function confirmDeleteItem() {
   const card = document.createElement('div');
   card.className = 'card item saved-item';
   card.dataset.category = item.category;
+   card.dataset.location = item.location || '';
 
   const title = document.createElement('h2');
   title.textContent = item.name;
